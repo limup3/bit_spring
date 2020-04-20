@@ -132,8 +132,8 @@ $('#Login-button').click(function(){
 		data: JSON.stringify(member),
 		dataType: 'json',
 		contentType: 'application/json',
-		success : function(returnName){
-			alert(returnName + '회원가입 성공')
+		success : function(returntest){
+			alert(returntest.name + '회원가입 성공')
 		},
 		error: function(){
 			alert('회원가입 실패')

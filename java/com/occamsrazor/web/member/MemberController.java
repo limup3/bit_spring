@@ -10,13 +10,13 @@ public class MemberController {
 	
 	
 	@PostMapping("/join")
-	public String add(@RequestBody Member member) {
+	public Member add(@RequestBody Member member) {
 		System.out.println(">>>>");
 		System.out.println(member.toString());
 //		인터넷에 연결하는부분
 		memberService = new MemberServiceImpl();
 		memberService.add(member);
 		
-		return member.getName();
+		return member;
 	}
 }
