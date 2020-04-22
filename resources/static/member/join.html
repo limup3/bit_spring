@@ -70,18 +70,15 @@ footer {
 </style>
 </head>
 <body>
-<h2>홈페이지</h2>
-
 <header>
-  <h2>Cities</h2>
+  <h2>회원가입</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="#">Join</a></li>
-      <li><a id="a-second" href="#">Login</a></li>
-      <li><a id="a-third"href="#">.....</a></li>
+      <li><a id="join_a" >Join</a></li>
+      <li><a id="Login_a">Login</a></li>
     </ul>
   </nav>
   
@@ -108,36 +105,65 @@ footer {
 </footer>
 
 
-<script type="text/javascript">
-$('#a-first').click(function(){
-	alert('London 클릭')
+<script>
+/* $('#join_a').css('cursor', 'wait') // 즉시실행 */
+ $('#a-first').click(e =>{
+	e.preventDefault()
 })
-$('#a-second').click(function(){
-	alert('Paris 클릭')
+$('#a-second').click(e =>{
+	e.preventDefault()
 })
-$('#a-third').click(function(){
-	alert('Tokyo 클릭')
+$('#a-third').click(e =>{
+	e.preventDefault()
+}) 
+$('#join_a')
+	.css('cursor', 'pointer')
+	.click(e => { // 클릭했을때 실행
+	e.preventDefault()
+	location.href = href="/member/join.html"
 })
-$('#Login-button').click(function(){
+$('#Login_a')
+	.css('cursor', 'pointer')
+	.click(e => { // 클릭했을때 실행
+	e.preventDefault()
+	location.href = href="/index.html"
+})
+
+$('#Login-button').click(e => {
 	/* alert('입력된 이름' + $('#name').val()) */
-	let member= {name : $('#name').val(),
+	/* let member= {name : $('#name').val(),
 		userid : $('#userid').val(),
 		passwd : $('#passwd').val(),
 		ssn : $('#ssn').val(),
-		addr : $('#addr').val()}
-	alert('입력된 주민번호' + member.ssn)
+		addr : $('#addr').val()} */
+	/* alert('입력된 주민번호' + member.ssn) */
+	e.preventDefault()
 	$.ajax({
-		url: '/join',
+		url: '/member/join',
 		type: 'post',
-		data: JSON.stringify(member),
+		data: JSON.stringify({
+			name : $('#name').val(),
+			userid : $('#userid').val(),
+			passwd : $('#passwd').val(),
+			ssn : $('#ssn').val(),
+			addr : $('#addr').val()}),
 		dataType: 'json',
 		contentType: 'application/json',
-		success : function(returntest){
-			alert(returntest.name + '회원가입 성공')
+		success : d => {
+			if(d === 'SUCCESS') {
+				location.href="../index.html"
+			}else{
+				location.href="join.html"
+			}
+			
 		},
-		error: function(){
-			alert('회원가입 실패')
-		}
+		error: (request,status,error)=>{
+			alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+	       }
+
+
+	
+		
 		
 	})
 	
@@ -145,7 +171,8 @@ $('#Login-button').click(function(){
 	name.val() */
 	/* String name = new String(); */
 })
-$('#cancel-button').click(function(){
+$('#cancel-button').click(e =>{
+	e.preventDefault()
 	alert('취소')
 })
 

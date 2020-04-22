@@ -1,5 +1,8 @@
 package com.occamsrazor.web.member;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MemberServiceImpl implements MemberService {
 
 	private Member[] members;
@@ -66,7 +69,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int count() {
-		// TODO Auto-generated method stub
 		return count;
 	}
 
@@ -88,17 +90,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member login(Member member) {
-		Member returnMember = null;
+	public boolean login(Member member) {
+		
+		boolean ok = false;
 		
 		for (int i = 0; i < count; i++) {
 			if(member.getUserid().equals(members[i].getUserid()) &&
 					member.getPasswd().equals(members[i].getPasswd())) {
-				returnMember = new Member();
-				returnMember = members[i];
+				ok = true;
+				break;
 			}
 		}
-		return returnMember;
+		return ok;
 		
 	}
 

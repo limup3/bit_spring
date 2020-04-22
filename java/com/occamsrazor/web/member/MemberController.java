@@ -1,22 +1,70 @@
 package com.occamsrazor.web.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.occamsrazor.web.util.Messager;
+
 @RestController
+@RequestMapping("/member") // com.occamsrazor.web.member
 public class MemberController {
-	public MemberService memberService;
+	@Autowired MemberService memberService;
+	//new 역할을 하고있음
+	public int count;
 	
 	
 	@PostMapping("/join")
-	public Member add(@RequestBody Member member) {
-		System.out.println(">>>>");
-		System.out.println(member.toString());
+	public Messager add(@RequestBody Member member) {
 //		인터넷에 연결하는부분
-		memberService = new MemberServiceImpl();
+		int current = memberService.count();
 		memberService.add(member);
+//		int count = memberService.count();
+//		Messager result = null;
+//		if(count == 1) {
+//			result = Messager.SUCCESS;
+//		}else {
+//			result = Messager.FAIL;
+//		}
+		return (memberService.count() == (current+1))?Messager.SUCCESS:Messager.FAIL;
+	}
+	@PostMapping("/login")
+	public Messager login(@RequestBody Member member) {
+		//String은 반환불가(자바에서만 가능) 객체로 보내야된다
+//		boolean loginOk = memberService.login(member);
+//		String message = "";
+//		if(!loginOk) {
+//			message = "SUCCESS";
+//		}else {
+//			message = "FAIL";
+//		}
+//		(memberService.login(member))?"SUCCESS" : "FAIL"
 		
-		return member;
+		
+		return  (memberService.login(member))?Messager.SUCCESS : Messager.FAIL;
+	}
+	
+	@GetMapping("/list")
+	public Member[] list() {
+		Member[] returnMembers = new Member[5];
+		memberService.list();
+		return returnMembers;
+	}
+	
+	@GetMapping("/detail")
+	public Member detail(@RequestBody Member member) {
+		Member returnMember = new Member();
+		memberService.detail(returnMember);
+		return returnMember;
+	}
+	
+	@GetMapping("/count")
+	public int count() {
+		count = 0;
+		memberService.count();
+		return count;
 	}
 }

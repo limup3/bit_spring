@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>spring localhost</title>
+<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {
@@ -70,27 +70,30 @@ footer {
 </style>
 </head>
 <body>
-
 <header>
-  <h2>로그인</h2>
+  <h2>성적표</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="/member/join.html">Join</a></li>
-      <li><a id="a-second" href="/index.html">Login</a></li>
+    
     </ul>
   </nav>
   
   <article>
   <form action="#">
   <label>ID</label> <br>
-  <input id = "userid" Type="text"> <br>
-  <label>PASSWORD</label> <br>
-  <input id= "passwd" Type="text"> <br>
-  <input id="Login-button"  type="button" value="로그인">
-  <input id="cancel-button" type="button" value="취소"> 
+  <input id = "userid" Type="text"/> <br>
+  <label>Korean</label> <br>
+  <input id= "korean" Type="text"/> <br>
+  <label>English</label> <br>
+  <input id = "english" Type="text"/> <br>
+  <label>Math</label> <br>
+  <input id = "math" Type="text"> <br>
+  <label>Java</label> <br>
+  <input id = "java" Type="text"> <br>
+  <input id="show-result" type="button" value="총점, 평균, 학점 보기"> 
   </form>
   </article>
 </section>
@@ -100,35 +103,11 @@ footer {
 </footer>
 
 
-<script>
-$('#Login-button').click(function(){
-	$.ajax({
-		url: '/member/login',
-		type: 'post',
-		data: JSON.stringify({
-			
-			userid : $('#userid').val(),
-			passwd : $('#passwd').val()
-		}),
-		dataType: 'json',
-		contentType: 'application/json',
-		success : d => {
-			
-			if(d === 'SUCCESS') {
-				location.href="grade/register.html"
-			}else{
-				alert('다시 로그인 해주세요')
-				location.href = "index.html"
-			}
-		},
-		error: (request,status,error)=>{
-			alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	       }
-		
-	})
+<script type="text/javascript">
+
 })
 $('#cancel-button').click(function(){
-	
+	alert('취소')
 })
 
 //아이디가 a링크인것
