@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>spring localhost</title>
+<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {
@@ -70,30 +70,29 @@ footer {
 </style>
 </head>
 <body>
-
 <header>
-  <h2>로그인</h2>
+  <h2>로또 구매</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="join_a" >관리자 등록</a></li>
-      <li><a id="Login_a">관리자 접속</a></li>
-      <li><a id="signup_a" >사용자 가입</a></li>
-      <li><a id="signin_a">사용자 로그인</a></li>
+    
     </ul>
   </nav>
   
   <article>
   <form action="#">
   <label>ID</label> <br>
-  <input id = "userid" Type="text"> <br>
-  <label>PASSWORD</label> <br>
-  <input id= "passwd" Type="text"> <br>
-  <input id="Login-button"  type="button" value="로그인">
-  <input id="cancel-button" type="button" value="취소"> 
+  <input id = "userid" Type="text"/> <br>
+  <label>로또 번호 입력(,로 분리해주세요)</label> <br>
+  <input id= "lotto" Type="text"/> <br>
+  <input id="buy_button"  type="button" value="로또 구매">
+  <input id="result_button" type="button" value="당첨 결과">
+  
+   
   </form>
+  <div id ="result"></div>
   </article>
 </section>
 
@@ -103,65 +102,48 @@ footer {
 
 
 <script>
-$('#join_a')
-	.css('cursor', 'pointer')
-	.click(e => {
+$('#buy_button').click(e => {
 	e.preventDefault()
-	location.href = href="/user/signup.html"
-	})
-
-$('#Login_a')
-	.css('cursor', 'pointer')
-	.click(e => {
-	e.preventDefault()
-	location.href = href = "/user/signin.html"
-	})
-
-$('#signup_a')
-	.css('cursor', 'pointer')
-	.click(e => {
-	e.preventDefault()
-	location.href = href = "/member/join.html"
-	})
-
-$('#signin_a')
-	.css('cursor','pointer')
-	.click(e => {
-	e.preventDefault()
-	location.href = href = "/index.html"
-	})
-
-$('#Login-button').click(function(){
+	$('#result').html('')
 	$.ajax({
-		url: '/member/login',
-		type: 'post',
-		data: JSON.stringify({
-			
+		url : '/lotto/buy',
+		type : 'post',
+		data : JSON.stringify({
 			userid : $('#userid').val(),
-			passwd : $('#passwd').val()
+			lotto : $('#lotto').val()
 		}),
-		dataType: 'json',
-		contentType: 'application/json',
+		dataType : 'json',
+		contentType : 'application/json',
 		success : d => {
-			
 			if(d === 'SUCCESS') {
-				location.href="grade/register.html"
-			}else{
-				alert('다시 로그인 해주세요')
-				location.href = "index.html"
+				alert(d)
+			}else {
+				alert(d)
 			}
 		},
-		error: (request,status,error)=>{
-			alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	       }
-		
+		error : (req,x,err)=> {
+			alert(req.status + "\n" + req.responseText + "\n" + err)
+		}
 	})
 })
-$('#cancel-button').click(function(){
-	
+$('#result_button').click(e => {
+	e.preventDefault()
+	$.ajax({
+		url : '',
+		type : '',
+		data : {},
+		dataType : '',
+		contentType : '',
+		success : d => {
+			alert(d)
+			$('#result').html('<h3>결과 : '+d+' </h3>')
+		},
+		error : (req,x,err)=> {
+			alert(req.status + "\n" + req.responseText + "\n" + err)
+		}
+	})
 })
 
-//아이디가 a링크인것
 </script>
 </body>
 </html>

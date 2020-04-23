@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>spring localhost</title>
+<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {
@@ -70,29 +70,31 @@ footer {
 </style>
 </head>
 <body>
-
 <header>
-  <h2>로그인</h2>
+  <h2>사용자 가입</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="join_a" >관리자 등록</a></li>
-      <li><a id="Login_a">관리자 접속</a></li>
-      <li><a id="signup_a" >사용자 가입</a></li>
-      <li><a id="signin_a">사용자 로그인</a></li>
+      <li><a id="home_a" >홈으로</a></li>
     </ul>
   </nav>
   
   <article>
   <form action="#">
+  <label>NAME</label> <br>
+  <input id = "name" Type="text"/> <br>
   <label>ID</label> <br>
-  <input id = "userid" Type="text"> <br>
-  <label>PASSWORD</label> <br>
-  <input id= "passwd" Type="text"> <br>
-  <input id="Login-button"  type="button" value="로그인">
-  <input id="cancel-button" type="button" value="취소"> 
+  <input id = "userid" Type="text"/> <br>
+    <label>PASSWORD</label> <br>
+  <input id= "passwd" Type="text"/> <br>
+  <label>SSN</label> <br>
+  <input id = "ssn" Type="text"/> <br>
+    <label>ADDR</label> <br>
+  <input id = "addr" Type="text"> <br>
+  <input id="join_button"  type="button" value="사용자 가입">
+  <input id="cancel_button" type="button" value="취소"> 
   </form>
   </article>
 </section>
@@ -103,65 +105,42 @@ footer {
 
 
 <script>
-$('#join_a')
+
+$('#home_a')
 	.css('cursor', 'pointer')
 	.click(e => {
 	e.preventDefault()
-	location.href = href="/user/signup.html"
+	location.href ="/index.html"
 	})
 
-$('#Login_a')
-	.css('cursor', 'pointer')
+$('#join_button')
 	.click(e => {
 	e.preventDefault()
-	location.href = href = "/user/signin.html"
-	})
-
-$('#signup_a')
-	.css('cursor', 'pointer')
-	.click(e => {
-	e.preventDefault()
-	location.href = href = "/member/join.html"
-	})
-
-$('#signin_a')
-	.css('cursor','pointer')
-	.click(e => {
-	e.preventDefault()
-	location.href = href = "/index.html"
-	})
-
-$('#Login-button').click(function(){
 	$.ajax({
-		url: '/member/login',
-		type: 'post',
-		data: JSON.stringify({
-			
+		url : '/user/join',
+		type : 'post',
+		data : JSON.stringify({
+			name : $('#name').val(),
 			userid : $('#userid').val(),
-			passwd : $('#passwd').val()
-		}),
-		dataType: 'json',
-		contentType: 'application/json',
+			passwd : $('#passwd').val(),
+			ssn : $('#ssn').val(),
+			addr : $('#addr').val()}),
+		dataType : 'json',
+		contentType : 'application/json',
 		success : d => {
-			
 			if(d === 'SUCCESS') {
-				location.href="grade/register.html"
-			}else{
-				alert('다시 로그인 해주세요')
-				location.href = "index.html"
+				alert(d)
+				location.href ="signin.html"
+			}else {
+				
 			}
 		},
-		error: (request,status,error)=>{
-			alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-	       }
-		
+		error : (r,x,e) => {
+			alert(r.status)
+		}
 	})
-})
-$('#cancel-button').click(function(){
 	
-})
-
-//아이디가 a링크인것
+	})
 </script>
 </body>
 </html>
