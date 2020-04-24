@@ -10,4 +10,8 @@ public interface UserService {
 	
 	public User detail(String userid);
 
+	public boolean update(User user);
+
+	public boolean remove(String userid);
+
 }

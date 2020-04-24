@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.occamsrazor.web.util.Messager;
+import com.occamsrazor.web.util.Messenger;
 
 @RestController
 @RequestMapping("/lotto")
@@ -16,12 +16,12 @@ public class LottoController {
 	@Autowired LottoService lottoService;
 	
 	@PostMapping("/buy")
-	public Messager buy(@RequestBody Lotto lotto) {
+	public Messenger buy(@RequestBody Lotto lotto) {
 		
 		int current = lottoService.count();
 		lottoService.add(lotto);
 		System.out.println(lotto);
-		return (lottoService.count() == (current+1))?Messager.SUCCESS:Messager.FAIL;
+		return (lottoService.count() == (current+1))?Messenger.SUCCESS:Messenger.FAIL;
 	}
 	
 	@PostMapping()

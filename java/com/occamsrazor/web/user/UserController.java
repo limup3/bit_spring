@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.occamsrazor.web.util.Messager;
+import com.occamsrazor.web.util.Messenger;
 
 @RestController
 @RequestMapping("/user") // com.occamsrazor.web.member
@@ -18,12 +22,12 @@ public class UserController {
 	@Autowired UserService userService;
 	
 	@PostMapping("/join")
-	public Messager join(@RequestBody User user) {
-		Messager messager = null;
+	public Messenger join(@RequestBody User user) {
+		Messenger messenger = null;
 		int count = userService.count();
 		userService.add(user);
 		
-		return (userService.count() == count + 1)? Messager.SUCCESS:Messager.FAIL;
+		return (userService.count() == count + 1)? messenger.SUCCESS:messenger.FAIL;
 	}
 	
 	@PostMapping("/login")
@@ -32,10 +36,28 @@ public class UserController {
 		User loginedUser = userService.login(user);
 		if(loginedUser != null) {
 			returnMap.put("user", loginedUser);
-			returnMap.put("messenger", Messager.SUCCESS);
+			returnMap.put("messenger", Messenger.SUCCESS);
 		}else {
-			returnMap.put("messenger", Messager.FAIL);
+			returnMap.put("messenger", Messenger.FAIL);
 		}
 		return returnMap;
 	}
+	
+	@GetMapping("/detail/{userid}")
+	public User detail(@PathVariable String userid) {
+		System.out.println("detail 진입 ::: " +userid);
+		return userService.detail(userid);
+	}
+	
+	@PutMapping("/update")
+	public Messenger update(@RequestBody User user) {
+		System.out.println("update정보 :::"+user);
+		return (userService.update(user)) ? Messenger.SUCCESS:Messenger.FAIL;
+	}
+	@DeleteMapping("/remove/{userid}")
+	public Messenger remove(@PathVariable String userid) {
+	System.out.println("delete 정보 :::" + userid);
+	return (userService.remove(userid)) ? Messenger.SUCCESS:Messenger.FAIL;
+	}
+	
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.occamsrazor.web.util.Messager;
+import com.occamsrazor.web.util.Messenger;
 
 @RestController
 @RequestMapping("/member") // com.occamsrazor.web.member
@@ -18,7 +18,7 @@ public class MemberController {
 	
 	
 	@PostMapping("/join")
-	public Messager add(@RequestBody Member member) {
+	public Messenger add(@RequestBody Member member) {
 //		인터넷에 연결하는부분
 		int current = memberService.count();
 		memberService.add(member);
@@ -29,10 +29,10 @@ public class MemberController {
 //		}else {
 //			result = Messager.FAIL;
 //		}
-		return (memberService.count() == (current+1))?Messager.SUCCESS:Messager.FAIL;
+		return (memberService.count() == (current+1))?Messenger.SUCCESS:Messenger.FAIL;
 	}
 	@PostMapping("/login")
-	public Messager login(@RequestBody Member member) {
+	public Messenger login(@RequestBody Member member) {
 		//String은 반환불가(자바에서만 가능) 객체로 보내야된다
 //		boolean loginOk = memberService.login(member);
 //		String message = "";
@@ -44,7 +44,7 @@ public class MemberController {
 //		(memberService.login(member))?"SUCCESS" : "FAIL"
 		
 		
-		return  (memberService.login(member))?Messager.SUCCESS : Messager.FAIL;
+		return  (memberService.login(member))?Messenger.SUCCESS : Messenger.FAIL;
 	}
 	
 	@GetMapping("/list")

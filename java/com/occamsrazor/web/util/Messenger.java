@@ -1,6 +1,6 @@
 package com.occamsrazor.web.util;
 
-public enum Messager {
+public enum Messenger {
 	SUCCESS, FAIL;
 	
 	

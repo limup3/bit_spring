@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.occamsrazor.web.util.Credit;
-import com.occamsrazor.web.util.Messager;
+import com.occamsrazor.web.util.Messenger;
 
 @RestController
 @RequestMapping("/grade")
@@ -19,13 +19,13 @@ public class GradeController {
 	public int count;
 	
 	@PostMapping("/register")
-	public Messager register(@RequestBody Grade grade) {
+	public Messenger register(@RequestBody Grade grade) {
 		int current = gradeService.count();
 		gradeService.add(grade);
 		System.out.println(grade+"add");
 		
 		
-		return(gradeService.count() == (current+1))?Messager.SUCCESS:Messager.FAIL;
+		return(gradeService.count() == (current+1))?Messenger.SUCCESS:Messenger.FAIL;
 		
 	
 	}

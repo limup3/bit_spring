@@ -120,7 +120,7 @@ e.preventDefault()
 		contentType : 'application/json',
 		success : d => {
 			if(d.messenger === 'SUCCESS') {
-				alert("유저아이디 :" +d.user.userid)
+				sessionStorage.setItem('userid',d.user.userid)
 				location.href ="mypage.html"
 			}else {
 				alert("로그인실패")
