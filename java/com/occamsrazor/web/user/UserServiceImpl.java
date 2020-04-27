@@ -1,7 +1,12 @@
 package com.occamsrazor.web.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -56,6 +61,21 @@ public class UserServiceImpl implements UserService {
 		map.remove(userid);
 		
 		return true;
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<User> list() {
+		List<User> list = new ArrayList<>();
+		Set set = map.entrySet();
+		Iterator it = set.iterator();
+		while(it.hasNext()) {
+			Map.Entry<String, User> e = (Entry<String, User>) it.next();
+			list.add(e.getValue());
+		}
+		for(int i = 0 ; i<list.size() ; i++) { 
+			System.out.println(list.get(i));
+		}
+		return list;
 	}
 	
 	
