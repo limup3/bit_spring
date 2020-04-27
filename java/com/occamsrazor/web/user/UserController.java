@@ -27,14 +27,16 @@ public class UserController {
 	public Messenger join(@RequestBody User user) {
 		Messenger messenger = null;
 		int count = userService.count();
-		userService.add(user);
+		userService.saveFile(user);
 		
-		return (userService.count() == count + 1)? messenger.SUCCESS:messenger.FAIL;
+//		return (userService.count() == count + 1)? messenger.SUCCESS:messenger.FAIL;
+		return messenger.SUCCESS;
 	}
 	
 	@GetMapping("/list")
 	public List<User> list(){
-		return 	userService.list();
+		//return 	userService.list();
+		return userService.readFile();
 	}
 	
 	@PostMapping("/login")
