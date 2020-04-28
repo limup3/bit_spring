@@ -21,5 +21,7 @@ public interface UserService {
 	public void saveFile(User user);
 	
 	public List<User> readFile();
+	
+	public boolean idSearch(String userid);
 
 }

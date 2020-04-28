@@ -86,15 +86,15 @@ footer {
   <label>NAME</label> <br>
   <input id = "name" Type="text"/> <br>
   <label>ID</label> <br>
-  <input id = "userid" Type="text"/> <br>
+  <input id = "userid" Type="text"/><input id="duplicate_button"  type="button" value="중복 확인"/> <br>
     <label>PASSWORD</label> <br>
   <input id= "passwd" Type="text"/> <br>
   <label>SSN</label> <br>
   <input id = "ssn" Type="text"/> <br>
     <label>ADDR</label> <br>
-  <input id = "addr" Type="text"> <br>
-  <input id="join_button"  type="button" value="사용자 가입">
-  <input id="cancel_button" type="button" value="취소"> 
+  <input id = "addr" Type="text"/> <br>
+  <input id="join_button"  type="button" value="사용자 가입"/>
+  <input id="cancel_button" type="button" value="취소"/> 
   </form>
   </article>
 </section>
@@ -105,6 +105,16 @@ footer {
 
 
 <script>
+const userid   = $('#userid').val()
+$('#duplicate_button').click(e => {
+	e.preventDefault()
+$.getJSON('/user/idSearch/'+$('#userid').val(),d => {	
+	
+	alert((d === 'SUCCESS')? "아이디가 중복입니다." : "사용 가능한 아이디입니다.")
+	
+})
+})
+
 
 $('#home_a')
 	.css('cursor', 'pointer')
@@ -130,7 +140,7 @@ $('#join_button')
 		success : d => {
 			if(d === 'SUCCESS') {
 				alert(d)
-				location.href ="signin.html"
+				location.href ="/member/list.html"
 			}else {
 				
 			}

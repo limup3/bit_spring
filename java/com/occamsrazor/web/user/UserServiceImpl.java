@@ -119,8 +119,9 @@ public class UserServiceImpl implements UserService {
 		}catch(Exception e) {
 			System.out.println("파일 출력시 에러 발생");
 		}
-		User u = new User();
+		User u = null;
 		for (int i = 0; i < list.size(); i++) {
+			u = new User();
 			String[] arr = list.get(i).split(",");
 			u.setUserid(arr[0]);
 			u.setPasswd(arr[1]);
@@ -130,9 +131,19 @@ public class UserServiceImpl implements UserService {
 			userlist.add(u);
 		}
 		
-		
 		return userlist;
 	}
-	
+	public boolean idSearch(String userid) {
+		boolean ok = false;
+		List<User> list = readFile();
+		for(int i = 0; i< list.size(); i++) {
+			if(userid.equals(list.get(i).getUserid())) {
+				ok = true;
+				break;
+			}
+		}
+		
+		return ok;
+	}
 	
 }

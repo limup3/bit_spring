@@ -54,6 +54,7 @@ public class UserController {
 	
 	@GetMapping("/detail/{userid}")
 	public User detail(@PathVariable String userid) {
+		System.out.println("detail"+userid);
 		return userService.detail(userid);
 	}
 	
@@ -66,6 +67,10 @@ public class UserController {
 	return (userService.remove(userid)) ? Messenger.SUCCESS:Messenger.FAIL;
 	}
 	
-	
+	@GetMapping("/idSearch/{userid}")
+	public Messenger idSearch(@PathVariable String userid) {
+		
+		return (userService.idSearch(userid))? Messenger.SUCCESS:Messenger.FAIL;
+	}
 	
 }
